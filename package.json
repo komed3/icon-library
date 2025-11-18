@@ -1,0 +1,25 @@
+{
+  "name": "@komed3/icon-library",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Browsing and downloading SVG icon packs / saved from discontinued iconfinder.com",
+  "license": "MIT",
+  "author": {
+    "name": "Paul Köhler (komed3)",
+    "url": "https://komed3.de",
+    "email": "webmaster@komed3.de"
+  },
+  "homepage": "https://github.com/komed3/icon-library",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/komed3/icon-library.git"
+  },
+  "bugs": {
+    "url": "https://github.com/komed3/icon-library/issues"
+  },
+  "type": "module",
+  "main": "index.html",
+  "scripts": {
+    "build": "node scripts/build-icons.js"
+  }
+}
