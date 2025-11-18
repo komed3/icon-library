@@ -93,3 +93,17 @@ body {
     width: 36px;
     height: 36px;
 }
+
+/** footer */
+
+.footer {
+    margin: var( --spacing-xxl ) 0;
+}
+
+.footer-content {
+    padding-top: var( --spacing-md );
+    text-align: center;
+    font-size: 14px;
+    color: var( --text-secondary );
+    border-top: var( --border-width ) solid var( --border-color );
+}
