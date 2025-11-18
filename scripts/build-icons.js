@@ -6,8 +6,8 @@
  * for the SVG icon download website
  */
 
-import {} from 'node:fs';
-import {} from 'node:path';
+import { readdirSync, statSync } from 'node:fs';
+import { join, relative } from 'node:path';
 
 const ICONS_DIR = '../icons';
 const OUTPUT_FILE = '../icons-data.json';
@@ -49,5 +49,53 @@ function parseIconFilename ( filename ) {
         description: capitalizeName( filename.replace( '.svg', '' ) ),
         filename: filename
     };
+
+}
+
+/**
+ * Scan a directory and return icon pack information
+ */
+function scanIconPack ( packPath, packName ) {
+
+    try {
+
+        const files = readdirSync( packPath );
+        const svgFiles = files.filter( file => file.endsWith( '.svg' ) );
+
+        let totalSize = 0;
+        const icons = [];
+
+        svgFiles.forEach( file => {
+
+            const filePath = join( packPath, file );
+            const stats = statSync( filePath );
+            totalSize += stats.size;
+
+            const iconData = parseIconFilename( file );
+            icons.push( iconData );
+
+        } );
+
+        // Sort icons by ID if available, otherwise by filename
+        icons.sort( ( a, b ) => {
+            if ( a.id !== null && b.id !== null ) return a.id - b.id;
+            return a.filename.localeCompare( b.filename );
+        } );
+
+        return {
+            name: packName,
+            path: relative( ICONS_DIR, packPath ),
+            iconCount: svgFiles.length,
+            totalSize: totalSize,
+            formattedSize: formatFileSize( totalSize ),
+            icons: icons
+        };
+
+    } catch ( err ) {
+
+        console.error( `Error scanning pack ${packName}:`, err.message );
+        return null;
+
+    }
 
 }
