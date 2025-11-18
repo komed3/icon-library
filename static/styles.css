@@ -51,6 +51,17 @@ body {
     background: var( --bg-primary );
 }
 
+a, a:link, a:visited {
+    text-decoration: none;
+    color: var( --accent-color );
+}
+
+a:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    color: var( --accent-hover );
+}
+
 .container {
     margin: 0 auto;
     max-width: var( --container-max-width );
