@@ -6,7 +6,7 @@
  * for the SVG icon download website
  */
 
-import { readdirSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const ICONS_DIR = '../icons';
@@ -97,5 +97,74 @@ function scanIconPack ( packPath, packName ) {
         return null;
 
     }
+
+}
+
+/**
+ * Main function to scan all icon packs
+ */
+function buildIconIndex () {
+
+    console.log( 'Scanning icon packs ...' );
+
+    // Check if icons directory exists
+    if ( ! existsSync( ICONS_DIR ) ) {
+
+        console.error( `Icons directory '${ICONS_DIR}' not found!` );
+        console.log( 'Please create the icons directory and place your icon packs inside.' );
+        process.exit( 1 );
+
+    }
+
+    const items = readdirSync( ICONS_DIR );
+    const iconPacks = [];
+    let totalIcons = 0;
+    let totalSize = 0;
+
+    items.forEach( item => {
+
+        const itemPath = path.join( ICONS_DIR, item );
+        const stats = statSync( itemPath );
+
+        if ( stats.isDirectory() ) {
+
+            console.log( `Processing: ${item}` );
+            const packData = scanIconPack( itemPath, item );
+
+            if ( packData && packData.iconCount > 0 ) {
+
+                iconPacks.push( packData );
+                totalIcons += packData.iconCount;
+                totalSize += packData.totalSize;
+
+            }
+
+        }
+
+    } );
+
+    // Sort packs alphabetically
+    iconPacks.sort( ( a, b ) => a.name.localeCompare( b.name ) );
+
+    const indexData = {
+        generated: new Date().toISOString(),
+        totalPacks: iconPacks.length,
+        totalIcons: totalIcons,
+        totalSize: totalSize,
+        formattedTotalSize: formatFileSize( totalSize ),
+        packs: iconPacks
+    };
+
+    // Write JSON file
+    writeFileSync( OUTPUT_FILE, JSON.stringify( indexData, null, 2 ) );
+
+    console.log( '\nBuild completed successfully!' );
+    console.log( 'Statistics:' );
+    console.log( `> Total packs: ${indexData.totalPacks}` );
+    console.log( `> Total icons: ${indexData.totalIcons}` );
+    console.log( `> Total size: ${indexData.formattedTotalSize}` );
+    console.log( `Data saved to: ${OUTPUT_FILE}` );
+
+    return indexData;
 
 }
