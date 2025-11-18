@@ -10,6 +10,7 @@
     --text-primary: #212529;
     --text-secondary: #6c757d;
     --text-tertiary: #adb5bd;
+    --text-accent: #ffffff;
     --border-color: #dee2e6;
     --accent-color: #0066cc;
     --accent-hover: #0052a3;
@@ -31,6 +32,8 @@
 
     --transition-fast: 0.15s ease;
     --transition-normal: 0.2s ease;
+
+    --font-sans: 'Inter', sans-serif;
 }
 
 *, *::before, *::after {
@@ -45,7 +48,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var( --font-sans );
     line-height: 1.2;
     color: var( --text-primary );
     background: var( --bg-primary );
@@ -66,6 +69,47 @@ a:hover {
     margin: 0 auto;
     max-width: var( --container-max-width );
     padding: 0 var( --spacing-md );
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: var( --spacing-md ) var( --spacing-md );
+    font-family: var( --font-sans );
+    font-size: 16px;
+    color: var( --text-primary );
+    background: var( --bg-primary );
+    border: var( --border-width ) solid var( --border-color );
+    border-radius: var( --border-radius );
+    transition: all var( --transition-fast );
+}
+
+input[type="text"]:focus {
+    border-color: var( --accent-color );
+    box-shadow: 0 0 0 3px rgba( 0, 102, 204, 0.1 );
+    outline: none;
+}
+
+button {
+    padding: var( --spacing-sm ) var( --spacing-md );
+    font-family: var( --font-sans );
+    font-size: 14px;
+    font-weight: 500;
+    color: var( --text-secondary );
+    background: transparent;
+    border: var( --border-width ) solid var( --border-color );
+    border-radius: var( --border-radius );
+    transition: all var( --transition-fast );
+    cursor: pointer;
+}
+
+button:hover {
+    background: var( --bg-tertiary );
+}
+
+button.active {
+    color: var( --text-accent );
+    background: var( --accent-color );
+    border-color: var( --accent-color );
 }
 
 /** Header */
@@ -105,7 +149,7 @@ a:hover {
     height: 36px;
 }
 
-/** footer */
+/** Footer */
 
 .footer {
     margin: var( --spacing-xxl ) 0;
@@ -117,4 +161,42 @@ a:hover {
     font-size: 14px;
     color: var( --text-secondary );
     border-top: var( --border-width ) solid var( --border-color );
+}
+
+/** Search Section */
+
+.search-section {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: var( --spacing-md );
+    margin: var( --spacing-xl ) 0;
+}
+
+.search-input-wrapper {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: var( --spacing-md );
+    transform: translateY( -50% );
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.search-input-wrapper input {
+    padding-left: calc( 2 * var( --spacing-md ) + 24px );
+}
+
+.search-filters {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: var( --spacing-xs );
+}
+
+.search-filters .filter-btn {
+    padding: var( --spacing-xs ) var( --spacing-md );
 }
