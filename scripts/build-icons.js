@@ -26,3 +26,28 @@ function formatFileSize ( bytes ) {
     return parseFloat( ( bytes / Math.pow( k, i ) ).toFixed( 2 ) ) + ' ' + sizes[ i ];
 
 }
+
+/**
+ * Parse icon filename to extract ID and description
+ * Expected format: [ID]_[description].svg
+ */
+function parseIconFilename ( filename ) {
+
+    const match = filename.match( /^(\d+)_(.+)\.svg$/ );
+    const capitalizeName = ( name ) => name.split( '_' ).map(
+        word => word.charAt( 0 ).toUpperCase() + word.slice( 1 )
+    ).join( ' ' );
+
+    if ( match ) return {
+        id: parseInt( match[ 1 ] ),
+        description: capitalizeName( match[ 2 ] ),
+        filename: filename
+    };
+
+    return {
+        id: null,
+        description: capitalizeName( filename.replace( '.svg', '' ) ),
+        filename: filename
+    };
+
+}
