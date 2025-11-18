@@ -20,6 +20,6 @@
   "type": "module",
   "main": "index.html",
   "scripts": {
-    "build": "node scripts/build-icons.js"
+    "build": "node scripts/build-icons.js --run"
   }
 }

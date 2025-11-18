@@ -9,8 +9,8 @@
 import { existsSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
-const ICONS_DIR = '../icons';
-const OUTPUT_FILE = '../icons-data.json';
+const ICONS_DIR = './icons';
+const OUTPUT_FILE = './icons-data.json';
 
 /**
  * Get file size in human readable format
@@ -169,7 +169,6 @@ function buildIconIndex () {
 
 }
 
-// Run the script
-if ( require.main === module ) buildIconIndex();
-
+// Run the script or export methods
+if ( process.argv.includes( '--run' ) ) buildIconIndex();
 export { buildIconIndex, scanIconPack, parseIconFilename };
