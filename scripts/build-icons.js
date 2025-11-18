@@ -168,3 +168,8 @@ function buildIconIndex () {
     return indexData;
 
 }
+
+// Run the script
+if ( require.main === module ) buildIconIndex();
+
+export { buildIconIndex, scanIconPack, parseIconFilename };
