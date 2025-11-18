@@ -123,7 +123,7 @@ function buildIconIndex () {
 
     items.forEach( item => {
 
-        const itemPath = path.join( ICONS_DIR, item );
+        const itemPath = join( ICONS_DIR, item );
         const stats = statSync( itemPath );
 
         if ( stats.isDirectory() ) {
