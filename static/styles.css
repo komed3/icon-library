@@ -16,6 +16,7 @@
     --accent-hover: #0052a3;
     --success-color: #28a745;
     --success-hover: #218838;
+    --error-color: #dc3545;
 
     --container-max-width: 1200px;
     --border-radius: 4px;
@@ -247,6 +248,34 @@ section {
 @keyframes spin {
       0% { transform: rotate(   0deg ); }
     100% { transform: rotate( 360deg ); }
+}
+
+/** Error */
+
+.error-section {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    text-align: center;
+}
+
+.error-message img {
+    width: 64px;
+    height: 64px;
+    opacity: 0.6;
+}
+
+.error-message h2 {
+    margin: var( --spacing-md ) 0 var( --spacing-xs );
+    font-size: 24px;
+    font-weight: 500;
+    color: var( --error-color );
+}
+
+.error-message p {
+    color: var( --text-secondary );
 }
 
 /** Sections */
