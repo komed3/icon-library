@@ -17,6 +17,7 @@
     --success-color: #28a745;
     --success-hover: #218838;
     --error-color: #dc3545;
+    --error-hover: #c82333;
 
     --container-max-width: 1200px;
     --border-radius: 4px;
@@ -99,7 +100,7 @@ button {
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    gap: var( --spacing-xs );
+    gap: var( --spacing-sm );
     padding: var( --spacing-sm ) var( --spacing-md );
     font-size: 14px;
     font-weight: 500;
@@ -186,6 +187,19 @@ section {
 
 .wrapper {
     min-height: 600px;
+}
+
+/** Scroll top */
+
+.scroll-top {
+    position: fixed;
+    right: var( --spacing-lg );
+    bottom: var( --spacing-lg );
+    color: var( --text-accent );
+    background: var( --accent-color );
+    transform: translateY( 100px );
+    transition: transform 0.2s ease;
+    z-index: 1000;
 }
 
 /** Search Section */
@@ -447,11 +461,18 @@ section {
     bottom: var( --spacing-lg );
     padding: var( --spacing-md );
     color: var( --text-accent );
-    background: var( --success-color );
     border-radius: var( --border-radius );
     transform: translateY( 100px );
     transition: transform 0.2s ease;
     z-index: 1000;
+}
+
+.toast.success {
+    background: var( --success-color );
+}
+
+.toast.error {
+    background: var( --error-color );
 }
 
 /** Responsive Design */
