@@ -291,8 +291,8 @@ section {
 
 .packs-grid {
     display: grid;
-    grid-template-columns: repeat( auto-fit, minmax( 300px, 1fr ) );
-    gap: var( --spacing-lg );
+    grid-template-columns: repeat( 3, 1fr );
+    gap: var( --spacing-md );
     margin: var( --spacing-xl ) 0;
 }
 
@@ -334,7 +334,7 @@ section {
 
 .icons-grid {
     display: grid;
-    grid-template-columns: repeat( auto-fit, minmax( 186px, 1fr ) );
+    grid-template-columns: repeat( 6, 1fr );
     gap: var( --spacing-sm );
     margin: var( --spacing-xl ) 0;
 }
