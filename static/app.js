@@ -54,7 +54,7 @@ class IconLibrary {
 
         try {
 
-            const res = await fetch( 'icons-dataw.json' );
+            const res = await fetch( 'icons-data.json' );
             if ( ! res.ok ) throw new Error( `HTTP error! status: ${res.status}` );
 
             this.iconData = await res.json();
@@ -79,8 +79,24 @@ class IconLibrary {
         searchInput.value = '';
         this.searchQuery = '';
 
-        //this.renderPacks();
-        //this.updateStats();
+        this.renderPacks();
+        this.updateStats();
+
+    }
+
+    renderPacks () {
+
+        this.byId( 'packs-grid' ).innerHTML = this.iconData?.packs.length
+            ? this.iconData.packs.map( p => this.packCardHtml( p ) ).join( '' )
+            : '<p>No icon packs found.</p>';
+
+    }
+
+    renderIcons ( icons ) {
+
+        this.byId( 'icons-grid' ).innerHTML = icons?.length
+            ? icons.map( i => this.iconCardHtml( i, this.currentPack.path ) ).join( '' )
+            : '<p>No icons found.</p>';
 
     }
 
