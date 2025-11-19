@@ -293,6 +293,7 @@ section {
     display: grid;
     grid-template-columns: repeat( auto-fit, minmax( 300px, 1fr ) );
     gap: var( --spacing-lg );
+    margin: var( --spacing-xl ) 0;
 }
 
 .pack-card {
@@ -382,4 +383,15 @@ section {
     flex: 1;
     padding: var( --spacing-xs );
     font-size: 12px;
+}
+
+/** Search results */
+
+.search-result-header {
+    margin: var( --spacing-md ) 0;
+}
+
+.search-result-header h3 {
+    font-size: 18px;
+    font-weight: 500;
 }
