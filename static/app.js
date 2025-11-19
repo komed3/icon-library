@@ -82,6 +82,24 @@ class IconLibrary {
 
     }
 
+    showPackView ( packName ) {
+
+        const pack = this.iconData.packs.find( p => p.name === packName );
+        if ( ! pack ) return;
+
+        this.currentPack = pack;
+        this.currentView = 'pack';
+        this.setView( 'icons' );
+
+        this.byId( 'pack-name' ).textContent = pack.name;
+        this.byId( 'pack-icon-count' ).textContent = `${ this.formatNumber( pack.iconCount ) } icons`;
+        this.byId( 'pack-size' ).textContent = pack.formattedSize;
+        this.byId( 'icon-search-input' ).value = '';
+
+        this.renderIcons( pack.icons );
+
+    }
+
     renderPacks () {
 
         this.byId( 'packs-grid' ).innerHTML = this.iconData?.packs.length
