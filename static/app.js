@@ -17,6 +17,28 @@ class IconLibrary {
 
     }
 
+    byId ( id ) { return document.getElementById( id ) }
+
+    setView ( viewId ) {
+
+        [ 'packs', 'icons', 'results', 'error' ].forEach( v => {
+            const el = this.byId( v );
+            if ( el ) el.style.display = v === viewId ? 'block' : 'none';
+        } );
+
+    }
+
+    formatNumber ( n ) { return typeof n === 'number' ? this.numFormatter.format( n ) : n }
+
+    escapeHtml ( text ) {
+
+        const div = document.createElement( 'div' );
+        div.textContent = text;
+
+        return div.innerHTML;
+
+    }
+
     async init () {
 
         this.setupEventListeners();
