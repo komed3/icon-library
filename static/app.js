@@ -267,6 +267,103 @@ class IconLibrary {
 
     }
 
+    // Copy & download icons
+
+    async downloadIcon ( filename, packPath = null ) {
+
+        const path = packPath || this.currentPack.path;
+
+        try {
+
+            const res = await fetch( `icons/${path}/${filename}` );
+            if ( ! res.ok ) throw new Error( 'Failed to fetch icon' );
+
+            this.downloadBlob( await res.blob(), filename );
+
+        } catch ( err ) {
+
+            console.error( 'Error downloading icon:', err );
+            this.showToast( 'Failed to download icon. Please try again.', 'error' );
+
+        }
+
+    }
+
+    async downloadPack ( packName = null ) {
+
+        const pack = packName ? this.iconData.packs.find( p => p.name === packName ) : this.currentPack;
+        if ( ! pack ) return;
+
+        try {
+
+            const zip = new JSZip();
+
+            for ( const icon of pack.icons ) {
+                const res = await fetch( `icons/${pack.path}/${icon.filename}` );
+                if ( res.ok ) zip.file( icon.filename, await res.text() );
+            }
+
+            const zipBlob = await zip.generateAsync( { type: 'blob' } );
+            this.downloadBlob( zipBlob, `${ pack.name.replace( /[^a-z0-9]/gi, '_' ).toLowerCase() }_icons.zip` );
+
+        } catch ( err ) {
+
+            console.error( 'Error downloading pack:', err );
+            this.showToast( 'Failed to download pack. Please try again.', 'error' );
+
+        }
+
+    }
+
+    downloadBlob ( blob, filename ) {
+
+        const url = URL.createObjectURL( blob );
+
+        const a = document.createElement( 'a' );
+        a.href = url; a.download = filename;
+        a.click();
+
+        URL.revokeObjectURL( url );
+
+    }
+
+    async copySvgCode ( filename, packPath = null ) {
+
+        const path = packPath || this.currentPack.path;
+
+        try {
+
+            const res = await fetch( `icons/${path}/${filename}` );
+            if ( ! res.ok ) throw new Error( 'Failed to fetch icon' );
+
+            await navigator.clipboard.writeText( await res.text() );
+            this.showToast( 'SVG code copied to clipboard!' );
+
+        } catch ( err ) {
+
+            console.error( 'Error copying SVG code:', err );
+            this.showToast( 'Failed to copy SVG code. Please try again.', 'error' );
+
+        }
+
+    }
+
+    showToast ( message, state = 'success' ) {
+
+        const toast = document.createElement( 'div' );
+        toast.className = `toast ${state}`;
+        toast.textContent = message;
+        document.body.appendChild( toast );
+
+        requestAnimationFrame( () => toast.style.transform = 'translateY( 0 )' );
+
+        setTimeout( () => {
+            toast.style.transform = 'translateY( 100px )';
+            setTimeout( () => toast.remove(), 200 );
+        }, 3000 );
+
+    }
+
     // Html injection
 
     packCardHtml ( pack ) {
