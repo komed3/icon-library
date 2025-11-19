@@ -27,9 +27,6 @@
     --spacing-xl: 32px;
     --spacing-xxl: 48px;
 
-    --grid-columns: 6;
-    --grid-gap: 16px;
-
     --transition-fast: 0.15s ease;
     --transition-normal: 0.2s ease;
 }
@@ -330,4 +327,60 @@ section {
 .pack-actions button {
     flex: 1;
     justify-content: center;
+}
+
+/** Icons grid */
+
+.icons-grid {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax( 186px, 1fr ) );
+    gap: var( --spacing-sm );
+    margin: var( --spacing-xl ) 0;
+}
+
+.icon-card {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 0 var( --spacing-md ) var( --spacing-md );
+    border: var( --border-width ) solid var( --border-color );
+    border-radius: var( --border-radius );
+    transition: all var( --transition-fast );
+}
+
+.icon-card:hover {
+    border-color: var( --accent-color );
+}
+
+.icon-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 86px;
+    margin: var( --spacing-sm ) 0;
+}
+
+.icon-preview img {
+    max-width: 64px;
+    max-height: 64px;
+}
+
+.icon-name {
+    flex: 1;
+    padding: var( --spacing-sm ) 0;
+    text-align: center;
+    font-size: 14px;
+    color: var( --text-secondary );
+    border-top: var( --border-width ) dashed var( --border-color );
+}
+
+.icon-actions {
+    display: flex;
+    gap: var( --spacing-xs );
+}
+
+.icon-actions button {
+    flex: 1;
+    justify-content: center;
+    padding: var( --spacing-xs );
+    font-size: 12px;
 }
