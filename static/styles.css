@@ -118,6 +118,10 @@ button.active {
     border-color: var( --accent-color );
 }
 
+section {
+    margin: var( --spacing-xl ) 0;
+}
+
 /** Header */
 
 .header {
@@ -174,7 +178,6 @@ button.active {
     display: flex;
     flex-flow: column nowrap;
     gap: var( --spacing-md );
-    margin: var( --spacing-xl ) 0;
 }
 
 .search-input-wrapper {
@@ -189,7 +192,7 @@ button.active {
     width: 24px;
     height: 24px;
     pointer-events: none;
-    opacity: 0.8;
+    opacity: 0.6;
 }
 
 .search-input-wrapper input {
@@ -233,4 +236,37 @@ button.active {
 @keyframes spin {
       0% { transform: rotate(   0deg ); }
     100% { transform: rotate( 360deg ); }
+}
+
+/** Sections */
+
+.section-header {
+    display: grid;
+    grid-template-columns: 36px max-content 1fr;
+    align-items: center;
+    gap: var( --spacing-md );
+    margin: var( --spacing-xl ) 0;
+    padding-bottom: var( --spacing-md );
+    border-bottom: var( --border-width ) solid var( --border-color );
+}
+
+.section-icon {
+    width: 36px;
+    height: 36px;
+    opacity: 0.6;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.section-stats {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: var( --spacing-sm );
+    margin-top: var( --spacing-xs );
+    font-size: 14px;
+    color: var( --text-secondary );
 }
