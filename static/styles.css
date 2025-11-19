@@ -288,3 +288,48 @@ section {
     align-items: center;
     gap: var( --spacing-sm );
 }
+
+/** Packs grid */
+
+.packs-grid {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax( 300px, 1fr ) );
+    gap: var( --spacing-lg );
+}
+
+.pack-card {
+    background-color: var( --bg-secondary );
+    border: var( --border-width ) solid var( --border-color );
+    padding: var( --spacing-lg );
+    border-radius: var( --border-radius );
+}
+
+.pack-header {
+    margin-bottom: var( --spacing-md );
+}
+
+.pack-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.pack-meta {
+    display: flex;
+    align-items: center;
+    gap: var( --spacing-sm );
+    margin-top: var( --spacing-xs );
+    font-size: 14px;
+    color: var( --text-secondary );
+}
+
+.pack-actions {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: var( --spacing-sm );
+}
+
+.pack-actions button {
+    flex: 1;
+    justify-content: center;
+    background: var( --bg-primary );
+}
