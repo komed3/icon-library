@@ -357,6 +357,7 @@ section {
     flex-flow: column nowrap;
     padding: var( --spacing-lg );
     border: var( --border-width ) solid var( --border-color );
+    border-radius: var( --border-radius );
     transition: all var( --transition-fast );
 }
 
