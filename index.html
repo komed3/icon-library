@@ -43,8 +43,17 @@
                     <p>Loading icon library …</p>
                 </section>
 
+                <!-- Error State -->
+                <section id="error" class="error-section">
+                    <div class="error-message">
+                        <img src="static/icons/error.svg" alt="Error" />
+                        <h2>Unable to load icon library</h2>
+                        <p id="error-text">Please make sure the icons-data.json file exists and the build script has been run.</p>
+                    </div>
+                </section>
+
                 <!-- Main View - Packs List -->
-                <section id="packs" class="section">
+                <section id="packs" class="section" style="display: none;">
                     <div class="section-header">
                         <img src="/static/icons/pack.svg" class="section-icon" alt="Icon pack" />
                         <div class="section-info">
@@ -62,7 +71,7 @@
                 </section>
 
                 <!-- Pack Detail View -->
-                <section id="icons" class="section">
+                <section id="icons" class="section" style="display: none;">
                     <div class="section-header">
                         <img src="/static/icons/grid.svg" class="section-icon" alt="Icons" />
                         <div class="section-info">
@@ -95,7 +104,7 @@
                 </section>
 
                 <!-- Search Results View -->
-                <section id="results" class="search-view">
+                <section id="results" class="search-view" style="display: none;">
                     <div class="section-header">
                         <img src="/static/icons/search.svg" class="section-icon" alt="Search results" />
                         <div class="section-info">
