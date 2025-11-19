@@ -8,11 +8,11 @@ class IconLibrary {
 
         this.iconData = null;
         this.currentPack = null;
-        this.currentView = 'main';
+
+        this.currentView = 'loading';
         this.searchQuery = '';
         this.searchFilter = 'all';
 
-        this.numFormatter = new Intl.NumberFormat( navigator.language || 'en-US' );
         this.init();
 
     }
@@ -22,6 +22,9 @@ class IconLibrary {
     byId ( id ) { return document.getElementById( id ) }
 
     setView ( viewId ) {
+
+        this.currentView = viewId;
+        window.scrollTo( 0, 0 );
 
         [ 'packs', 'icons', 'results', 'error', 'loading' ].forEach( v => {
             const el = this.byId( v ); if ( el ) {
@@ -38,6 +41,8 @@ class IconLibrary {
         this.searchQuery = '';
 
     }
+
+    numFormatter = new Intl.NumberFormat( navigator.language || 'en-US' );
 
     formatNumber ( n ) { return typeof n === 'number' ? this.numFormatter.format( n ) : n }
 
@@ -62,7 +67,7 @@ class IconLibrary {
         );
 
         document.addEventListener( 'keydown', ( e ) => {
-            if ( e.key === 'Escape' && this.currentView !== 'main' ) this.showMainView();
+            if ( e.key === 'Escape' && this.currentView !== 'packs' ) this.showMainView();
             if ( ( e.ctrlKey || e.metaKey ) && e.key === 'k' ) {
                 e.preventDefault(); this.byId( 'search-input' ).focus();
             }
@@ -110,7 +115,6 @@ class IconLibrary {
 
     showMainView () {
 
-        this.currentView = 'main';
         this.currentPack = null;
         this.setView( 'packs' );
         this.clearInput();
@@ -135,7 +139,6 @@ class IconLibrary {
         if ( ! pack ) return;
 
         this.currentPack = pack;
-        this.currentView = 'pack';
         this.setView( 'icons' );
         this.clearInput();
 
@@ -181,7 +184,6 @@ class IconLibrary {
 
     showSearchResults () {
 
-        this.currentView = 'search';
         this.setView( 'results' );
 
         const results = { packs: [], icons: [] };
