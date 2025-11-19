@@ -13,6 +13,10 @@ class IconLibrary {
         this.searchQuery = '';
         this.searchFilter = 'all';
 
+        this.iconsPageSize = 48;
+        this.iconsRendered = 0;
+        this.iconsToRender = [];
+
         this.init();
 
     }
@@ -90,6 +94,8 @@ class IconLibrary {
 
         } );
 
+        window.addEventListener( 'scroll', ( e ) => this.onIconsScroll( e ) );
+
     }
 
     async loadIconData () {
@@ -152,9 +158,42 @@ class IconLibrary {
 
     renderIcons ( icons ) {
 
-        this.byId( 'icons-grid' ).innerHTML = icons?.length
-            ? icons.map( i => this.iconCardHtml( i, this.currentPack.path ) ).join( '' )
-            : '<p>No icons found.</p>';
+        if ( ! icons || ! icons.length ) {
+
+            this.byId( 'icons-grid' ).innerHTML = '<p>No icons found.</p>';
+
+            this.iconsToRender = [];
+            this.iconsRendered = 0;
+            return;
+
+        }
+
+        this.byId( 'icons-grid' ).innerHTML = '';
+
+        this.iconsToRender = icons;
+        this.iconsRendered = 0;
+        this.renderNextIcons();
+
+    }
+
+    renderNextIcons () {
+
+        if ( ! this.iconsToRender || this.iconsRendered >= this.iconsToRender.length ) return;
+
+        const isResultView = this.currentView === 'results';
+        const grid = isResultView ? 'search-icons-grid' : 'icons-grid';
+        const next = this.iconsToRender.slice( this.iconsRendered, this.iconsRendered + this.iconsPageSize );
+        this.iconsRendered += next.length;
+
+        this.byId( grid ).insertAdjacentHTML( 'beforeend', next.map(
+            i => this.iconCardHtml( i, i.packPath, isResultView ? i.packName : null ) ).join( '' )
+        );
+
+    }
+
+    onIconsScroll () {
+
+        if ( window.innerHeight + window.scrollY >= document.body.offsetHeight - 150 ) this.renderNextIcons();
 
     }
 
@@ -248,13 +287,17 @@ class IconLibrary {
             sections.push( `<div class="search-result-section">` +
                 `<div class="search-result-header"><h3>Icons (${ this.formatNumber(  results.icons.length ) })</h3></div>` +
                 `<div class="search-result-content">` +
-                    `<div class="icons-grid">${ results.icons.map( i => this.iconCardHtml( i, i.packPath, i.packName ) ).join( '' ) }</div>` +
+                    `<div id="search-icons-grid" class="icons-grid"></div>` +
                 `</div>` +
             `</div>` );
+
+            this.iconsToRender = results.icons;
+            this.iconsRendered = 0;
 
         }
 
         this.byId( 'search-results' ).innerHTML = sections.length ? sections.join( '' ) : '<p>No results found.</p>';
+        this.renderNextIcons();
 
     }
 
