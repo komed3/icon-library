@@ -32,6 +32,13 @@ class IconLibrary {
 
     }
 
+    clearInput () {
+
+        document.querySelectorAll( 'input[type="text"]' ).forEach( el => el.value = '' );
+        this.searchQuery = '';
+
+    }
+
     formatNumber ( n ) { return typeof n === 'number' ? this.numFormatter.format( n ) : n }
 
     // Initialize
@@ -106,10 +113,7 @@ class IconLibrary {
         this.currentView = 'main';
         this.currentPack = null;
         this.setView( 'packs' );
-
-        const searchInput = this.byId( 'search-input' );
-        searchInput.value = '';
-        this.searchQuery = '';
+        this.clearInput();
 
         if ( this.iconData ) {
 
@@ -133,11 +137,11 @@ class IconLibrary {
         this.currentPack = pack;
         this.currentView = 'pack';
         this.setView( 'icons' );
+        this.clearInput();
 
         this.byId( 'pack-name' ).textContent = pack.name;
         this.byId( 'pack-icon-count' ).textContent = `${ this.formatNumber( pack.iconCount ) } icons`;
         this.byId( 'pack-size' ).textContent = pack.formattedSize;
-        this.byId( 'icon-search-input' ).value = '';
 
         this.renderIcons( pack.icons );
 
@@ -172,6 +176,83 @@ class IconLibrary {
 
         this.searchQuery = query.toLowerCase().trim();
         this.searchQuery ? this.showSearchResults() : this.showMainView();
+
+    }
+
+    showSearchResults () {
+
+        this.currentView = 'search';
+        this.setView( 'results' );
+
+        const results = { packs: [], icons: [] };
+
+        if ( ! this.iconData ) {
+            this.renderSearchResults( results );
+            return;
+        }
+
+        const { searchFilter, searchQuery } = this;
+
+        if ( searchFilter === 'all' || searchFilter === 'pack' ) {
+
+            results.packs = this.iconData.packs.filter( pack =>
+                pack.name.toLowerCase().includes( searchQuery )
+            );
+
+        }
+
+        if ( searchFilter === 'all' || searchFilter === 'icon' ) {
+
+            this.iconData.packs.forEach( pack => {
+                pack.icons
+                    .filter( icon =>
+                        icon.id.toString().includes( searchQuery ) ||
+                        icon.description.toLowerCase().includes( searchQuery ) ||
+                        icon.filename.toLowerCase().includes( searchQuery )
+                    )
+                    .forEach( icon => results.icons.push( {
+                        ...icon,
+                        packName: pack.name,
+                        packPath: pack.path
+                    } ) );
+            } );
+
+        }
+
+        this.renderSearchResults( results );
+
+    }
+
+    renderSearchResults ( results ) {
+
+        const totalResults = ( results.packs?.length || 0 ) + ( results.icons?.length || 0 );
+        this.byId( 'search-results-count' ).textContent = `${ this.formatNumber( totalResults ) } result${ totalResults !== 1 ? 's' : '' }`;
+
+        const sections = [];
+
+        if ( results.packs?.length ) {
+
+            sections.push( `<div class="search-result-section">` +
+                `<div class="search-result-header"><h3>Packs (${ this.formatNumber( results.packs.length ) })</h3></div>` +
+                `<div class="search-result-content">` +
+                    `<div class="packs-grid">${ results.packs.map( p => this.packCardHtml( p ) ).join( '' ) }</div>` +
+                `</div>` +
+            `</div>` );
+
+        }
+
+        if ( results.icons?.length ) {
+
+            sections.push( `<div class="search-result-section">` +
+                `<div class="search-result-header"><h3>Icons (${ this.formatNumber(  results.icons.length ) })</h3></div>` +
+                `<div class="search-result-content">` +
+                    `<div class="icons-grid">${ results.icons.map( i => this.iconCardHtml( i, i.packPath, i.packName ) ).join( '' ) }</div>` +
+                `</div>` +
+            `</div>` );
+
+        }
+
+        this.byId( 'search-results' ).innerHTML = sections.length ? sections.join( '' ) : '<p>No results found.</p>';
 
     }
 
