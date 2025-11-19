@@ -79,8 +79,15 @@ class IconLibrary {
         searchInput.value = '';
         this.searchQuery = '';
 
-        this.renderPacks();
-        this.updateStats();
+        if ( this.iconData ) {
+
+            this.byId( 'pack-count' ).textContent = `${ this.formatNumber( this.iconData.totalPacks ) } packs`;
+            this.byId( 'icon-count' ).textContent = `${ this.formatNumber( this.iconData.totalIcons ) } icons`;
+            this.byId( 'total-size' ).textContent = this.iconData.formattedTotalSize;
+
+            this.renderPacks();
+
+        }
 
     }
 
