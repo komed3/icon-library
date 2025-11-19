@@ -62,6 +62,39 @@
                     </div>
                 </section>
 
+                <!-- Pack Detail View -->
+                <section id="icons" class="section">
+                    <div class="section-header">
+                        <img src="/static/icons/grid.svg" class="section-icon" alt="Icons" />
+                        <div class="section-info">
+                            <h2 id="pack-name" class="section-title">Pack Name</h2>
+                            <div class="section-stats">
+                                <span id="pack-icon-count">0 icons</span> • 
+                                <span id="pack-size">0 MB</span>
+                            </div>
+                        </div>
+                        <div class="section-actions">
+                            <button id="back-btn">
+                                <img src="static/icons/back.svg" alt="Back" />
+                                <span>Back to Packs</span>
+                            </button>
+                            <button id="download-pack-btn">
+                                <img src="static/icons/download.svg" alt="Download" />
+                                <span>Download Pack</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="search-controls">
+                        <div class="search-input-wrapper">
+                            <img src="static/icons/search.svg" class="search-icon" />
+                            <input type="text" id="icon-search-input" placeholder="Search icons in this pack …" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div id="icons-grid" class="icons-grid">
+                        <!-- Icons will be dynamically inserted here -->
+                    </div>
+                </section>
+
             </div>
         </main>
         <footer class="footer">
