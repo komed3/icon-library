@@ -32,15 +32,6 @@ class IconLibrary {
 
     formatNumber ( n ) { return typeof n === 'number' ? this.numFormatter.format( n ) : n }
 
-    escapeHtml ( text ) {
-
-        const div = document.createElement( 'div' );
-        div.textContent = text;
-
-        return div.innerHTML;
-
-    }
-
     async init () {
 
         this.setupEventListeners();
@@ -104,6 +95,43 @@ class IconLibrary {
         this.byId( 'icons-grid' ).innerHTML = icons?.length
             ? icons.map( i => this.iconCardHtml( i, this.currentPack.path ) ).join( '' )
             : '<p>No icons found.</p>';
+
+    }
+
+    packCardHtml ( pack ) {
+
+        return `<div class="pack-card">` +
+            `<div class="pack-header">` +
+                `<h3 class="pack-title">${pack.name}</h3>` +
+                `<div class="pack-meta">` +
+                    `<span>${ this.formatNumber( pack.iconCount ) } icons</span>` +
+                    `<span>•</span>` +
+                    `<span>${pack.formattedSize}</span>` +
+                `</div>` +
+            `</div>` +
+            `<div class="pack-actions">` +
+                `<button data-action="show-pack" data-pack="${pack.name}">View Icons</button>` +
+                `<button data-action="download-pack" data-pack="${pack.name}">Download Pack</button>` +
+            `</div>` +
+        `</div>`;
+
+    }
+
+    iconCardHtml ( icon, packPath, packName ) {
+
+        const path = packPath || this.currentPack?.path || '';
+
+        return `<div class="icon-card">` +
+            `<div class="icon-preview">` +
+                `<img src="icons/${path}/${icon.filename}" alt="${desc}" loading="lazy" />` +
+            `</div>` +
+            `<div class="icon-name">${icon.description}</div>` +
+            `<div class="icon-actions">` +
+                `<button data-action="download-icon" data-filename="${icon.filename}" data-packpath="${path}">Download</button>` +
+                `<button data-action="copy-svg" data-filename="${icon.filename}" data-packpath="${path}">Copy SVG</button>` +
+                packName ? `<button class="pack-name" data-action="show-pack" data-pack="${packName}">${packName}</button>` : '' +
+            `</div>` +
+        `</div>`;
 
     }
 
