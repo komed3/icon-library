@@ -17,6 +17,8 @@ class IconLibrary {
 
     }
 
+    // Helper
+
     byId ( id ) { return document.getElementById( id ) }
 
     setView ( viewId ) {
@@ -31,6 +33,8 @@ class IconLibrary {
     }
 
     formatNumber ( n ) { return typeof n === 'number' ? this.numFormatter.format( n ) : n }
+
+    // Initialize
 
     async init () {
 
@@ -95,6 +99,8 @@ class IconLibrary {
 
     }
 
+    // Views
+
     showMainView () {
 
         this.currentView = 'main';
@@ -133,11 +139,43 @@ class IconLibrary {
         this.byId( 'pack-size' ).textContent = pack.formattedSize;
         this.byId( 'icon-search-input' ).value = '';
 
-        this.byId( 'icons-grid' ).innerHTML = pack.icons?.length
-            ? pack.icons.map( i => this.iconCardHtml( i, this.currentPack.path ) ).join( '' )
+        this.renderIcons( pack.icons );
+
+    }
+
+    renderIcons ( icons ) {
+
+        this.byId( 'icons-grid' ).innerHTML = icons?.length
+            ? icons.map( i => this.iconCardHtml( i, this.currentPack.path ) ).join( '' )
             : '<p>No icons found.</p>';
 
     }
+
+    filterIcons ( query ) {
+
+        if ( ! this.currentPack ) return;
+
+        const q = query.toLowerCase();
+        const filtered = this.currentPack.icons.filter( icon =>
+            icon.id.toString().includes( q ) ||
+            icon.description.toLowerCase().includes( q ) ||
+            icon.filename.toLowerCase().includes( q )
+        );
+
+        this.renderIcons( filtered );
+
+    }
+
+    // Search
+
+    handleSearch ( query ) {
+
+        this.searchQuery = query.toLowerCase().trim();
+        this.searchQuery ? this.showSearchResults() : this.showMainView();
+
+    }
+
+    // Html injection
 
     packCardHtml ( pack ) {
 
