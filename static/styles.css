@@ -405,7 +405,7 @@ section {
 
 .icon-name {
     flex: 1;
-    padding: var( --spacing-sm ) 0;
+    padding: var( --spacing-md ) 0;
     text-align: center;
     font-size: 14px;
     color: var( --text-secondary );
@@ -414,6 +414,7 @@ section {
 
 .icon-actions {
     display: flex;
+    flex-flow: row wrap;
     gap: var( --spacing-xs );
 }
 
