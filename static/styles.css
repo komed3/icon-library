@@ -175,7 +175,7 @@ section {
     margin: var( --spacing-xxl ) 0;
 }
 
-.footer-content {
+.footer-content p {
     padding-top: var( --spacing-md );
     text-align: center;
     font-size: 14px;
