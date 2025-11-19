@@ -21,9 +21,11 @@ class IconLibrary {
 
     setView ( viewId ) {
 
-        [ 'packs', 'icons', 'results', 'error' ].forEach( v => {
-            const el = this.byId( v );
-            if ( el ) el.style.display = v === viewId ? 'block' : 'none';
+        [ 'packs', 'icons', 'results', 'error', 'loading' ].forEach( v => {
+            const el = this.byId( v ); if ( el ) {
+                if ( v === viewId ) el.style.removeProperty( 'display' );
+                else el.style.display = 'none';
+            }
         } );
 
     }
@@ -48,7 +50,39 @@ class IconLibrary {
 
     setupEventListeners () {}
 
-    async loadIconData () {}
+    async loadIconData () {
+
+        try {
+
+            const res = await fetch( 'icons-dataw.json' );
+            if ( ! res.ok ) throw new Error( `HTTP error! status: ${res.status}` );
+
+            this.iconData = await res.json();
+            this.showMainView();
+
+        } catch ( err ) {
+
+            console.error( 'Error loading icon data:', err );
+            this.setView( 'error' )
+
+        }
+
+    }
+
+    showMainView () {
+
+        this.currentView = 'main';
+        this.currentPack = null;
+        this.setView( 'packs' );
+
+        const searchInput = this.byId( 'search-input' );
+        searchInput.value = '';
+        this.searchQuery = '';
+
+        //this.renderPacks();
+        //this.updateStats();
+
+    }
 
 }
 
