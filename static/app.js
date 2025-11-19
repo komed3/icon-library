@@ -39,7 +39,42 @@ class IconLibrary {
 
     }
 
-    setupEventListeners () {}
+    setupEventListeners () {
+
+        this.byId( 'search-input' )?.addEventListener( 'input', ( e ) => this.handleSearch( e.target.value ) );
+        this.byId( 'icon-search-input' )?.addEventListener( 'input', ( e ) => this.filterIcons( e.target.value ) );
+        this.byId( 'back-btn' )?.addEventListener( 'click', () => this.showMainView() );
+        this.byId( 'download-pack-btn' )?.addEventListener( 'click', () => this.downloadPack() );
+
+        document.querySelectorAll( '.filter-btn' ).forEach( btn =>
+            btn.addEventListener( 'click', ( e ) => this.setSearchFilter( e.target.dataset.filter ) )
+        );
+
+        document.addEventListener( 'keydown', ( e ) => {
+            if ( e.key === 'Escape' && this.currentView !== 'main' ) this.showMainView();
+            if ( ( e.ctrlKey || e.metaKey ) && e.key === 'k' ) {
+                e.preventDefault(); this.byId( 'search-input' ).focus();
+            }
+        } );
+
+        document.body.addEventListener( 'click', ( e ) => {
+
+            const btn = e.target.closest( 'button[data-action]' );
+            if ( ! btn ) return;
+
+            const { action, pack, filename, packpath } = btn.dataset;
+            const actions = {
+                'show-pack': () => this.showPackView( pack ),
+                'download-pack': () => this.downloadPack( pack ),
+                'download-icon': () => this.downloadIcon( filename, packpath ),
+                'copy-svg': () => this.copySvgCode( filename, packpath )
+            };
+
+            actions[ action ]?.();
+
+        } );
+
+    }
 
     async loadIconData () {
 
@@ -76,7 +111,9 @@ class IconLibrary {
             this.byId( 'icon-count' ).textContent = `${ this.formatNumber( this.iconData.totalIcons ) } icons`;
             this.byId( 'total-size' ).textContent = this.iconData.formattedTotalSize;
 
-            this.renderPacks();
+            this.byId( 'packs-grid' ).innerHTML = this.iconData?.packs.length
+                ? this.iconData.packs.map( p => this.packCardHtml( p ) ).join( '' )
+                : '<p>No icon packs found.</p>';
 
         }
 
@@ -96,22 +133,8 @@ class IconLibrary {
         this.byId( 'pack-size' ).textContent = pack.formattedSize;
         this.byId( 'icon-search-input' ).value = '';
 
-        this.renderIcons( pack.icons );
-
-    }
-
-    renderPacks () {
-
-        this.byId( 'packs-grid' ).innerHTML = this.iconData?.packs.length
-            ? this.iconData.packs.map( p => this.packCardHtml( p ) ).join( '' )
-            : '<p>No icon packs found.</p>';
-
-    }
-
-    renderIcons ( icons ) {
-
-        this.byId( 'icons-grid' ).innerHTML = icons?.length
-            ? icons.map( i => this.iconCardHtml( i, this.currentPack.path ) ).join( '' )
+        this.byId( 'icons-grid' ).innerHTML = pack.icons?.length
+            ? pack.icons.map( i => this.iconCardHtml( i, this.currentPack.path ) ).join( '' )
             : '<p>No icons found.</p>';
 
     }
@@ -141,13 +164,13 @@ class IconLibrary {
 
         return `<div class="icon-card">` +
             `<div class="icon-preview">` +
-                `<img src="icons/${path}/${icon.filename}" alt="${desc}" loading="lazy" />` +
+                `<img src="icons/${path}/${icon.filename}" alt="${icon.description}" loading="lazy" />` +
             `</div>` +
             `<div class="icon-name">${icon.description}</div>` +
             `<div class="icon-actions">` +
                 `<button data-action="download-icon" data-filename="${icon.filename}" data-packpath="${path}">Download</button>` +
                 `<button data-action="copy-svg" data-filename="${icon.filename}" data-packpath="${path}">Copy SVG</button>` +
-                packName ? `<button class="pack-name" data-action="show-pack" data-pack="${packName}">${packName}</button>` : '' +
+                ( packName ? `<button class="pack-name" data-action="show-pack" data-pack="${packName}">${packName}</button>` : '' ) +
             `</div>` +
         `</div>`;
 
