@@ -487,6 +487,19 @@ section {
     font-weight: 500;
 }
 
+/** Info section */
+
+.info-section h2 {
+    margin: var( --spacing-md ) 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.info-section p {
+    margin-top: var( --spacing-sm );
+    color: var( --text-secondary );
+}
+
 /** Toast */
 
 .toast {
