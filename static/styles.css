@@ -177,6 +177,7 @@ section {
 
 .footer-content p {
     padding-top: var( --spacing-md );
+    padding-bottom: var( --spacing-xxl );
     text-align: center;
     font-size: 14px;
     color: var( --text-secondary );
