@@ -278,7 +278,7 @@ section {
     color: var( --text-secondary );
 }
 
-/** Sections */
+/** Sections (views) */
 
 .section-header {
     display: grid;
@@ -303,10 +303,11 @@ section {
 
 .section-stats {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     align-items: center;
     gap: var( --spacing-sm );
     margin-top: var( --spacing-xs );
+    white-space: nowrap;
     font-size: 14px;
     color: var( --text-secondary );
 }
@@ -431,4 +432,74 @@ section {
 .search-result-header h3 {
     font-size: 18px;
     font-weight: 500;
+}
+
+/** Responsive Design */
+
+@media ( max-width: 1200px ) {
+
+    .packs-grid {
+        grid-template-columns: repeat( 2, 1fr );
+    }
+
+    .icons-grid {
+        grid-template-columns: repeat( 5, 1fr );
+    }
+
+}
+
+@media ( max-width: 1000px ) {
+
+    .section-actions button span {
+        display: none;
+    }
+
+    .section-actions button img {
+        margin-right: -4px;
+    }
+
+    .icons-grid {
+        grid-template-columns: repeat( 4, 1fr );
+    }
+
+}
+
+@media ( max-width: 800px ) {
+
+    .packs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .icons-grid {
+        grid-template-columns: repeat( 3, 1fr );
+    }
+
+}
+
+@media ( max-width: 600px ) {
+
+    .section-header {
+        grid-template-columns: 1fr max-content;
+    }
+
+    .section-icon {
+        display: none;
+    }
+
+    .icons-grid {
+        grid-template-columns: repeat( 2, 1fr );
+    }
+
+}
+
+@media ( max-width: 400px ) {
+
+    .pack-actions, .icon-actions {
+        flex-direction: column;
+    }
+
+    .icons-grid {
+        grid-template-columns: repeat( 1, 1fr );
+    }
+
 }
