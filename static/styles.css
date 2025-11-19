@@ -434,6 +434,21 @@ section {
     font-weight: 500;
 }
 
+/** Toast */
+
+.toast {
+    position: fixed;
+    right: var( --spacing-lg );
+    bottom: var( --spacing-lg );
+    padding: var( --spacing-md );
+    color: var( --text-accent );
+    background: var( --success-color );
+    border-radius: var( --border-radius );
+    transform: translateY( 100px );
+    transition: transform 0.2s ease;
+    z-index: 1000;
+}
+
 /** Responsive Design */
 
 @media ( max-width: 1200px ) {
