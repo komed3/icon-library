@@ -249,6 +249,25 @@ section {
     padding: var( --spacing-xs ) var( --spacing-md );
 }
 
+.search-help {
+    flex: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var( --spacing-sm );
+    font-size: 13px;
+    color: var( --text-secondary );
+}
+
+.search-help code {
+    padding: var( --spacing-xs ) var( --spacing-sm );
+    font-family: monospace;
+    font-weight: 600;
+    background: var( --bg-secondary );
+    border-radius: var( --border-radius );
+}
+
 /** Loading State */
 
 .loading-section {
