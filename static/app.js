@@ -256,6 +256,17 @@ class IconLibrary {
 
     }
 
+    setSearchFilter ( filter ) {
+
+        this.searchFilter = filter;
+        document.querySelectorAll( '.filter-btn' ).forEach( btn =>
+            btn.classList.toggle( 'active', btn.dataset.filter === filter )
+        );
+
+        if ( this.searchQuery ) this.showSearchResults();
+
+    }
+
     // Html injection
 
     packCardHtml ( pack ) {
