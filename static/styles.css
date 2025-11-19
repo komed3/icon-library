@@ -323,8 +323,8 @@ section {
 
 .packs-grid {
     display: grid;
-    grid-template-columns: repeat( 3, 1fr );
-    gap: var( --spacing-md );
+    grid-template-columns: repeat( 4, 1fr );
+    gap: var( --spacing-sm );
     margin: var( --spacing-xl ) 0;
 }
 
@@ -342,8 +342,8 @@ section {
 }
 
 .pack-title {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .pack-meta {
@@ -357,7 +357,7 @@ section {
 
 .pack-actions {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     gap: var( --spacing-sm );
 }
 
@@ -459,7 +459,7 @@ section {
 @media ( max-width: 1200px ) {
 
     .packs-grid {
-        grid-template-columns: repeat( 2, 1fr );
+        grid-template-columns: repeat( 3, 1fr );
     }
 
     .icons-grid {
@@ -476,6 +476,10 @@ section {
 
     .section-actions button img {
         margin-right: -4px;
+    }
+
+    .packs-grid {
+        grid-template-columns: repeat( 2, 1fr );
     }
 
     .icons-grid {
