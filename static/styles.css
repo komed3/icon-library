@@ -424,6 +424,10 @@ section {
     font-size: 12px;
 }
 
+.icon-actions .pack-name {
+    flex: 0 0 100%;
+}
+
 /** Search results */
 
 .search-result-header {
