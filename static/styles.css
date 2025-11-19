@@ -181,6 +181,12 @@ section {
     border-top: var( --border-width ) solid var( --border-color );
 }
 
+/** Content */
+
+.wrapper {
+    min-height: 600px;
+}
+
 /** Search Section */
 
 .search-section {
@@ -227,10 +233,6 @@ section {
     align-items: center;
     gap: var( --spacing-md );
     min-height: 300px;
-}
-
-.loading-section:not( .active ) {
-    display: none;
 }
 
 .spinner {
