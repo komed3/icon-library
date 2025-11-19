@@ -574,7 +574,7 @@ section {
         grid-template-columns: 1fr max-content;
     }
 
-    .section-icon {
+    .section-icon, .search-help {
         display: none;
     }
 
