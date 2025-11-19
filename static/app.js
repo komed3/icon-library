@@ -176,6 +176,23 @@ class IconLibrary {
 
     }
 
+    filterIcons ( query ) {
+
+        if ( ! this.currentPack ) return;
+
+        const q = query.toLowerCase();
+        const filtered = this.currentPack.icons.filter( icon =>
+            icon.id.toString().includes( q ) ||
+            icon.description.toLowerCase().includes( q ) ||
+            icon.filename.toLowerCase().includes( q )
+        );
+
+        this.renderIcons( filtered );
+
+    }
+
+    // Pagination
+
     renderNextIcons () {
 
         if ( ! this.iconsToRender || this.iconsRendered >= this.iconsToRender.length ) return;
@@ -194,21 +211,6 @@ class IconLibrary {
     onIconsScroll () {
 
         if ( window.innerHeight + window.scrollY >= document.body.offsetHeight - 150 ) this.renderNextIcons();
-
-    }
-
-    filterIcons ( query ) {
-
-        if ( ! this.currentPack ) return;
-
-        const q = query.toLowerCase();
-        const filtered = this.currentPack.icons.filter( icon =>
-            icon.id.toString().includes( q ) ||
-            icon.description.toLowerCase().includes( q ) ||
-            icon.filename.toLowerCase().includes( q )
-        );
-
-        this.renderIcons( filtered );
 
     }
 
