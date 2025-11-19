@@ -94,7 +94,8 @@ class IconLibrary {
 
         } );
 
-        window.addEventListener( 'scroll', ( e ) => this.onIconsScroll( e ) );
+        window.addEventListener( 'scroll', ( e ) => { this.onIconsScroll( e ); this.scrollButton(); } );
+        this.byId( 'scroll-top' ).addEventListener( 'click', () => window.scrollTo( 0, 0 ) );
 
     }
 
@@ -408,6 +409,17 @@ class IconLibrary {
             toast.style.transform = 'translateY( 100px )';
             setTimeout( () => toast.remove(), 200 );
         }, 3000 );
+
+    }
+
+    // Scroll button
+
+    scrollButton () {
+
+        const btn = this.byId( 'scroll-top' );
+
+        if ( window.scrollY > 250 ) requestAnimationFrame( () => btn.style.transform = 'translateY( 0 )' );
+        else requestAnimationFrame( () => btn.style.transform = 'translateY( 100px )' );
 
     }
 

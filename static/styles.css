@@ -197,9 +197,19 @@ section {
     bottom: var( --spacing-lg );
     color: var( --text-accent );
     background: var( --accent-color );
+    border: 0;
     transform: translateY( 100px );
-    transition: transform 0.2s ease;
-    z-index: 1000;
+    transition: all 0.2s ease;
+    z-index: 999;
+}
+
+.scroll-top:hover {
+    background: var( --accent-hover );
+}
+
+.scroll-top img {
+    filter: invert( 1 );
+    opacity: 1;
 }
 
 /** Search Section */
