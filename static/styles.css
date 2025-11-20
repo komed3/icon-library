@@ -504,6 +504,39 @@ section {
     color: var( --text-secondary );
 }
 
+/** Selection modal */
+
+.selection-modal {
+    position: fixed;
+    top: calc( 72px + var( --spacing-lg ) );
+    right: var( --spacing-lg );
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: var( --spacing-md );
+    padding: var( --spacing-sm );
+    background: var( --bg-primary );
+    border: var( --border-width ) solid var( --border-color );
+    border-radius: var( --border-radius );
+    z-index: 100;
+}
+
+.selection-count {
+    padding: 0 var( --spacing-md );
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.selection-modal button {
+    color: var( --text-accent );
+    background: var( --accent-color );
+    border: 0;
+}
+
+.selection-modal button:hover {
+    background: var( --accent-hover );
+}
+
 /** Toast */
 
 .toast {
@@ -515,7 +548,7 @@ section {
     border-radius: var( --border-radius );
     transform: translateY( 100px );
     transition: transform 0.2s ease;
-    z-index: 1000;
+    z-index: 100;
 }
 
 .toast.success {
