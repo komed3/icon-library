@@ -30,6 +30,7 @@ class IconLibrary {
     setView ( viewId ) {
 
         this.currentView = viewId;
+        this.clearSelection();
         window.scrollTo( 0, 0 );
 
         [ 'packs', 'icons', 'results', 'error', 'loading' ].forEach( v => {
@@ -445,7 +446,27 @@ class IconLibrary {
 
         }
 
-        //this.updateSelectionModal();
+        this.updateSelectionModal();
+
+    }
+
+    clearSelection () {
+
+        this.selectedIcons.clear();
+
+        document.querySelectorAll( '.icon-card.selected' ).forEach( c => c.classList.remove( 'selected' ) );
+        this.updateSelectionModal();
+
+    }
+
+    updateSelectionModal () {
+
+        const count = this.selectedIcons.size;
+
+        if ( count === 0 ) { this.byId( 'selection-modal' ).style.display = 'none' } else {
+            this.byId( 'selection-modal' ).style.removeProperty( 'display' );
+            this.byId( 'selection-count' ).textContent = `${ this.formatNumber( count ) } selected`;
+        }
 
     }
 
