@@ -18,6 +18,7 @@
     --success-hover: #218838;
     --error-color: #dc3545;
     --error-hover: #c82333;
+    --box-shadow: 0 0 0 3px rgba( 0 102 204 / 0.1 );
 
     --container-max-width: 1200px;
     --border-radius: 4px;
@@ -91,7 +92,7 @@ input[type="text"] {
 
 input[type="text"]:focus {
     border-color: var( --accent-color );
-    box-shadow: 0 0 0 3px rgba( 0, 102, 204, 0.1 );
+    box-shadow: var( --box-shadow );
     outline: none;
 }
 
@@ -433,10 +434,31 @@ section {
     border: var( --border-width ) solid var( --border-color );
     border-radius: var( --border-radius );
     transition: all var( --transition-fast );
+    cursor: zoom-in;
 }
 
 .icon-card:hover {
     border-color: var( --accent-color );
+}
+
+.icon-card.selected {
+    position: relative;
+    border-color: var( --accent-color );
+    box-shadow: var( --box-shadow );
+    cursor: zoom-out;
+}
+
+.icon-card.selected::after {
+    content: '';
+    position: absolute;
+    top: var( --spacing-sm );
+    right: var( --spacing-sm );
+    width: 12px;
+    height: 12px;
+    background: var( --accent-color );
+    border-radius: 50%;
+    box-shadow: var( --box-shadow );
+    z-index: 1;
 }
 
 .icon-preview {
