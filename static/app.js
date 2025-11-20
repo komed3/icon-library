@@ -448,7 +448,7 @@ class IconLibrary {
 
         }
 
-        this.updateSelectionModal();
+        this.updateSelectionInfo();
 
     }
 
@@ -457,16 +457,16 @@ class IconLibrary {
         this.selectedIcons.clear();
 
         document.querySelectorAll( '.icon-card.selected' ).forEach( c => c.classList.remove( 'selected' ) );
-        this.updateSelectionModal();
+        this.updateSelectionInfo();
 
     }
 
-    updateSelectionModal () {
+    updateSelectionInfo () {
 
         const count = this.selectedIcons.size;
 
-        if ( count === 0 ) { this.byId( 'selection-modal' ).style.display = 'none' } else {
-            this.byId( 'selection-modal' ).style.removeProperty( 'display' );
+        if ( count === 0 ) { this.byId( 'select' ).style.display = 'none' } else {
+            this.byId( 'select' ).style.removeProperty( 'display' );
             this.byId( 'selection-count' ).textContent = `${ this.formatNumber( count ) } selected`;
         }
 
