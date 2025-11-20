@@ -626,6 +626,10 @@ section {
 
 @media ( max-width: 600px ) {
 
+    .footer-content p {
+        text-align: left;
+    }
+
     .section-header {
         grid-template-columns: 1fr max-content;
     }
