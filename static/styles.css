@@ -341,7 +341,6 @@ section {
 
 .select-section span {
     flex: 1;
-    padding-bottom: var( --spacing-sm );
     font-weight: 500;
 }
 
@@ -637,6 +636,14 @@ section {
 
     .icons-grid {
         grid-template-columns: repeat( 2, 1fr );
+    }
+
+    .select-section {
+        flex-direction: column;
+    }
+
+    .select-section span {
+        display: none;
     }
 
 }
