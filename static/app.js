@@ -423,6 +423,32 @@ class IconLibrary {
 
     }
 
+    // Selection helpers
+
+    toggleIconSelection ( card ) {
+
+        const btn = card.querySelector( 'button[data-action="download-icon"]' );
+        if ( ! btn ) return;
+
+        const { filename, packpath } = btn.dataset;
+        const key = `${ packpath }::${ filename }`;
+
+        if ( this.selectedIcons.has( key ) ) {
+
+            this.selectedIcons.delete( key );
+            card.classList.remove( 'selected' );
+
+        } else {
+
+            this.selectedIcons.set( key, { filename, packpath } );
+            card.classList.add( 'selected' );
+
+        }
+
+        //this.updateSelectionModal();
+
+    }
+
     // Scroll button
 
     scrollButton () {
