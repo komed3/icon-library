@@ -140,14 +140,14 @@ section {
     top: 0;
     background: var( --bg-secondary );
     border-bottom: var( --border-width ) solid var( --border-color );
-    z-index: 100;
+    z-index: 98;
 }
 
 .header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 72px;
+    height: 72px;
 }
 
 .header-logo {
@@ -160,13 +160,13 @@ section {
 
 .header-logo h1 {
     margin: 0;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: 900;
 }
 
 .header-logo img {
-    width: 36px;
-    height: 36px;
+    width: 33px;
+    height: 33px;
 }
 
 /** Footer */
@@ -187,6 +187,7 @@ section {
 /** Content */
 
 .wrapper {
+    position: relative;
     min-height: 600px;
 }
 
@@ -201,7 +202,7 @@ section {
     border: 0;
     transform: translateY( 100px );
     transition: all 0.2s ease;
-    z-index: 999;
+    z-index: 99;
 }
 
 .scroll-top:hover {
@@ -325,13 +326,17 @@ section {
 /** Sections (views) */
 
 .section-header {
+    position: sticky;
+    top: 72px;
     display: grid;
     grid-template-columns: 36px 1fr max-content;
     align-items: center;
     gap: var( --spacing-md );
     margin: var( --spacing-xl ) 0;
-    padding-bottom: var( --spacing-md );
+    padding: var( --spacing-md ) 0;
+    background: var( --bg-primary );
     border-bottom: var( --border-width ) solid var( --border-color );
+    z-index: 97;
 }
 
 .section-icon {
