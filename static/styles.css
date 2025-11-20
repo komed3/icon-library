@@ -326,8 +326,6 @@ section {
 /** Sections (views) */
 
 .section-header {
-    position: sticky;
-    top: 72px;
     display: grid;
     grid-template-columns: 36px 1fr max-content;
     align-items: center;
