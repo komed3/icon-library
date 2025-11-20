@@ -68,6 +68,8 @@ class IconLibrary {
         this.byId( 'icon-search-input' )?.addEventListener( 'input', ( e ) => this.filterIcons( e.target.value ) );
         this.byId( 'back-btn' )?.addEventListener( 'click', () => this.showMainView() );
         this.byId( 'download-pack-btn' )?.addEventListener( 'click', () => this.downloadPack() );
+        this.byId( 'download-selected-btn' )?.addEventListener( 'click', () => this.downloadSelected() );
+        this.byId( 'clear-selected-btn' )?.addEventListener( 'click', () => this.clearSelection() );
 
         document.querySelectorAll( '.filter-btn' ).forEach( btn =>
             btn.addEventListener( 'click', ( e ) => this.setSearchFilter( e.target.dataset.filter ) )
