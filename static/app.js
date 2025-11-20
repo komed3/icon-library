@@ -472,6 +472,34 @@ class IconLibrary {
 
     }
 
+    async downloadSelected () {
+
+        if ( ! this.selectedIcons.size ) return;
+
+        try {
+
+            const zip = new JSZip();
+
+            for ( const [ , { packpath, filename } ] of this.selectedIcons ) {
+                const res = await fetch( `icons/${packpath}/${filename}` );
+                if ( res.ok ) zip.file( filename, await res.text() );
+            }
+
+            const blob = await zip.generateAsync( { type: 'blob' } );
+            this.downloadBlob( blob, `selected_icons_${ Date.now() }.zip` );
+
+            this.showToast( 'Selected icons downloaded!' );
+            this.clearSelection();
+
+        } catch ( err ) {
+
+            console.error( 'Error downloading selected icons:', err );
+            this.showToast( 'Failed to download selected icons.', 'error' );
+
+        }
+
+    }
+
     // Scroll button
 
     scrollButton () {
