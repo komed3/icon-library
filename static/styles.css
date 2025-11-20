@@ -324,6 +324,37 @@ section {
     color: var( --text-secondary );
 }
 
+/** Select section */
+
+.select-section {
+    position: sticky;
+    top: 72px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: var( --spacing-sm );
+    padding: var( --spacing-md ) 0;
+    background: var( --bg-primary );
+    border-bottom: var( --border-width ) solid var( --border-color );
+    z-index: 97;
+}
+
+.select-section span {
+    flex: 1;
+    padding-bottom: var( --spacing-sm );
+    font-weight: 500;
+}
+
+.select-section button:first-of-type {
+    color: var( --text-accent );
+    background: var( --accent-color );
+    border: 0;
+}
+
+.select-section button:first-of-type:hover {
+    background: var( --accent-hover );
+}
+
 /** Sections (views) */
 
 .section-header {
@@ -524,42 +555,6 @@ section {
 .info-section p {
     margin-top: var( --spacing-sm );
     color: var( --text-secondary );
-}
-
-/** Selection modal */
-
-.selection-modal {
-    position: fixed;
-    top: calc( 72px + var( --spacing-lg ) );
-    right: var( --spacing-lg );
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    gap: var( --spacing-sm );
-    padding: var( --spacing-md );
-    background: var( --bg-primary );
-    border: var( --border-width ) solid var( --border-color );
-    border-radius: var( --border-radius );
-    z-index: 100;
-}
-
-.selection-modal span {
-    padding-bottom: var( --spacing-sm );
-    font-weight: 500;
-}
-
-.selection-modal button {
-    width: 100%;
-}
-
-.selection-modal button:first-of-type {
-    color: var( --text-accent );
-    background: var( --accent-color );
-    border: 0;
-}
-
-.selection-modal button:first-of-type:hover {
-    background: var( --accent-hover );
 }
 
 /** Toast */
