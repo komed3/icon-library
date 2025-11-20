@@ -17,6 +17,8 @@ class IconLibrary {
         this.iconsRendered = 0;
         this.iconsToRender = [];
 
+        this.selectedIcons = new Map();
+
         this.init();
 
     }
@@ -91,6 +93,15 @@ class IconLibrary {
             };
 
             actions[ action ]?.();
+
+        } );
+
+        document.body.addEventListener( 'click', ( e ) => {
+
+            const card = e.target.closest && e.target.closest( '.icon-card' );
+            if ( ! card || e.target.closest( 'button' ) ) return;
+
+            this.toggleIconSelection( card );
 
         } );
 
