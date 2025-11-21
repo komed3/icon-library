@@ -397,6 +397,12 @@ section {
     gap: var( --spacing-sm );
 }
 
+.section-credits {
+    margin: var( --spacing-md ) 0;
+    font-size: 14px;
+    color: var( --text-secondary );
+}
+
 /** Packs grid */
 
 .packs-grid {
