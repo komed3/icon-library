@@ -217,9 +217,9 @@ class IconLibrary {
         const next = this.iconsToRender.slice( this.iconsRendered, this.iconsRendered + this.iconsPageSize );
         this.iconsRendered += next.length;
 
-        this.byId( grid ).insertAdjacentHTML( 'beforeend', next.map(
-            i => this.iconCardHtml( i, i.packPath, isResultView ? i.packName : null ) ).join( '' )
-        );
+        this.byId( grid ).insertAdjacentHTML( 'beforeend', next.map( i =>
+            this.iconCardHtml( i, i.packPath, isResultView ? i.packName : null )
+        ).join( '' ) );
 
     }
 
@@ -434,7 +434,7 @@ class IconLibrary {
         if ( ! btn ) return;
 
         const { filename, packpath } = btn.dataset;
-        const key = `${ packpath }::${ filename }`;
+        const key = `${packpath}::${filename}`;
 
         if ( this.selectedIcons.has( key ) ) {
 
@@ -535,8 +535,9 @@ class IconLibrary {
     iconCardHtml ( icon, packPath, packName ) {
 
         const path = packPath || this.currentPack?.path || '';
+        const selected = this.selectedIcons.has( `${path}::${icon.filename}` );
 
-        return `<div class="icon-card">` +
+        return `<div class="icon-card ${ selected ? 'selected' : '' }">` +
             `<div class="icon-preview">` +
                 `<img src="icons/${path}/${icon.filename}" alt="${icon.description}" loading="lazy" />` +
             `</div>` +
