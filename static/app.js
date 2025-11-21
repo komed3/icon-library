@@ -167,6 +167,10 @@ class IconLibrary {
         this.byId( 'pack-icon-count' ).textContent = `${ this.formatNumber( pack.iconCount ) } icons`;
         this.byId( 'pack-size' ).textContent = pack.formattedSize;
 
+        this.byId( 'pack-credits' ).innerHTML = pack.info === null ? '' :
+            `Icons created by <strong>${ pack.info.creator || 'Unknown' }</strong> — ` +
+            `Licensed under <strong>${ pack.info.license || 'Unknown' }</strong>`;
+
         this.renderIcons( pack.icons );
 
     }
