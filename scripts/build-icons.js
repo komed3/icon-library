@@ -6,7 +6,7 @@
  * for the SVG icon download website
  */
 
-import { existsSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const ICONS_DIR = './icons';
@@ -65,6 +65,7 @@ function scanIconPack ( packPath, packName ) {
         let totalSize = 0;
         const icons = [];
 
+        // Create index with all icons in the pack
         svgFiles.forEach( file => {
 
             const filePath = join( packPath, file );
@@ -82,13 +83,20 @@ function scanIconPack ( packPath, packName ) {
             return a.filename.localeCompare( b.filename );
         } );
 
+        // Check for info.json
+        const infoPath = join( packPath, 'info.json' );
+        let info = null;
+        if ( existsSync( infoPath ) ) {
+            info = JSON.parse( readFileSync( infoPath, 'utf-8' ) );
+        }
+
         return {
             name: packName,
             path: relative( ICONS_DIR, packPath ),
             iconCount: svgFiles.length,
             totalSize: totalSize,
             formattedSize: formatFileSize( totalSize ),
-            icons: icons
+            info, icons: icons
         };
 
     } catch ( err ) {
